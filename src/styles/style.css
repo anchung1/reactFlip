@@ -26,3 +26,41 @@ div>h3 {color: purple;}
 .example-appear.example-appear-active {
     opacity: 1;
 }
+
+
+div.container {
+    position: relative;
+
+}
+/* rect (top, right, bottom, left) */
+#aceSpade {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+
+    clip: rect(24px, 183px, 243px, 24px);
+}
+
+#twoSpade {
+    position: absolute;
+    top: 50px;
+    left: 250px;
+
+    clip: rect(24px, 366px, 243px, 207px);
+}
+
+/*#threeSpade {
+    position: absolute;
+    top: 50px;
+    left: 450px;
+
+    clip: rect(24px, 549px, 243px, 390px);
+}*/
+
+
+/*
+#rect:hover {
+    position: absolute;
+    -moz-transform: scale(1.5);
+    transform: scale(1.5);
+}*/
