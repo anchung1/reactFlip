@@ -9,44 +9,42 @@
 
 }
 
-#card {
+.card {
     width: 200px;
     height: 260px;
-    top: 10%;
-    left: 20%;
     position: absolute;
     transition: transform 1s;
     transform-style: preserve-3d;
 }
 
+.card.flipped {
+    transform: rotateY( 180deg );
+}
+
+.front {
+    position: absolute;
+    width: 172px;
+    height: 241px;
+    backface-visibility: hidden;
+
+}
+
+.back {
+    position: absolute;
+    width: 172px;
+    height: 241px;
+    backface-visibility: hidden;
+    background-position: -556px -413px;
+
+    transform: rotateY( 180deg );
+}
+
 .deck {
     background-image: url("cards.jpg");
 }
-
-#card.flipped {
-    transform: rotateY( 180deg );
-}
-
-
-#card .front {
-    position: absolute;
+#Ace {
     background-position: -9px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 10px;
-    backface-visibility: hidden;
-
 }
-
-#card .back {
-    position: absolute;
-    background-position: -556px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 10px;
-    backface-visibility: hidden;
-
-    transform: rotateY( 180deg );
+#King {
+    background-position: -191px -413px;
 }
