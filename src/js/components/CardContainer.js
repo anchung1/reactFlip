@@ -50,8 +50,8 @@ var CardContainer = React.createClass({
 
             <section className="container">
                 <div id="card" onClick={this.click}>
-                    <figure className="front">1</figure>
-                    <figure className="back">2</figure>
+                    <div className="front deck"></div>
+                    <div className="back deck"></div>
                 </div>
             </section>
 

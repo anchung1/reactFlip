@@ -1,42 +1,52 @@
 .container {
-    width: 200px;
-    height: 260px;
+    width: 1024px;
+    height: 768px;
     position: relative;
     margin: 0 auto 40px;
     border: 1px solid #CCC;
     perspective: 800px;
+    background-image: url("bg.jpg");
+
 }
 
 #card {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 260px;
+    top: 10%;
+    left: 20%;
     position: absolute;
     transition: transform 1s;
     transform-style: preserve-3d;
+}
+
+.deck {
+    background-image: url("cards.jpg");
 }
 
 #card.flipped {
     transform: rotateY( 180deg );
 }
 
-#card figure {
-    display: block;
-    height: 100%;
-    width: 100%;
-    line-height: 260px;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 140px;
-    position: absolute;
-    backface-visibility: hidden;
-}
 
 #card .front {
-    background: red;
+    position: absolute;
+    background-position: -9px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 10px;
+    backface-visibility: hidden;
+
 }
 
 #card .back {
-    background: blue;
+    position: absolute;
+    background-position: -556px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 10px;
+    backface-visibility: hidden;
+
     transform: rotateY( 180deg );
 }

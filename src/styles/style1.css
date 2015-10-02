@@ -9,7 +9,7 @@
 
 
 
-.deck {
+.deck1 {
     background-image: url("cards.jpg");
 }
 
@@ -53,6 +53,8 @@
 
 }
 
+/*
 .deck:hover {
     transform: rotate(90deg);
 }
+*/
