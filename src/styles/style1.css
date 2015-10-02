@@ -1,98 +1,58 @@
-/*
-.container {
-    width: 200px;
-    height: 260px;
+
+
+#idbg {
     position: relative;
-    perspective: 800px;
+    width: 1024px;
+    height: 500px;
+    background-image: url("bg.jpg");
 }
 
-#card {
-    width: 100%;
-    height: 100%;
+
+
+.deck {
+    background-image: url("cards.jpg");
+}
+
+.AceSpade {
     position: absolute;
-    transform-style: preserve-3d;
-    transition: transform 1s;
+    background-position: -9px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 10px;
+
 }
 
-#card figure {
-    margin: 0;
-    display: block;
+.KingHeart {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+    background-position: -191px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 210px;
+
 }
 
-#card .front{
-    background: red;
-}
-#card .back {
-    background: blue;
-    transform: rotateY(180deg);
-}
-
-#card:hover {
-    transform: rotateY(180deg);
-}
-
-#card1 figure {
-    margin: 0;
-    display: block;
+.Joker {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transform-origin: right center;
+    background-position: -374px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 410px;
+
 }
 
-#card1:hover {
-    transform: translateX(-100%) rotateY(-180deg);
-}
-
-#card1 .front{
-    background: yellow;
-}
-#card1 .back {
-    background: brown;
-    transform: translateX(-100%) rotateY(-180deg);
-}
-*/
-
-.container {
-    border: 1px solid #ccc;
-    height: 260px;
-    margin: 0 auto 40px;
-    perspective: 800px;
-    position: relative;
-    width: 200px;
-}
-#card {
-    height: 100%;
+.Back {
     position: absolute;
-    transform-origin: right center 0;
-    transform-style: preserve-3d;
-    transition: transform 1s ease 0s;
-    width: 100%;
+    background-position: -556px -413px;
+    width: 172px;
+    height: 241px;
+    top: 100px;
+    left: 610px;
+
 }
-#card:hover {
-    transform: translateX(-100%) rotateY(-180deg);
-}
-#card figure {
-    backface-visibility: hidden;
-    color: white;
-    display: block;
-    font-size: 140px;
-    font-weight: bold;
-    height: 100%;
-    line-height: 260px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-}
-#card .front {
-    background: red none repeat scroll 0 0;
-}
-#card .back {
-    background: blue none repeat scroll 0 0;
-    transform: rotateY(180deg);
+
+.deck:hover {
+    transform: rotate(90deg);
 }

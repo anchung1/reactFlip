@@ -26,11 +26,6 @@ gulp.task('buildCSS', function () {
     gulp.src(path.STYLES).pipe(concat('main.css')).pipe(gulp.dest(path.DEST_SRC));
 });
 
-gulp.task('css', function () {
-    watch(path.STYLES, batch(function (events, done) {
-        gulp.start('buildCSS', done);
-    }));
-});
 
 gulp.task('replaceHTML', function() {
     gulp.src(path.HTML).pipe(htmlreplace({
@@ -38,11 +33,6 @@ gulp.task('replaceHTML', function() {
     })).pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('index', function() {
-    watch(path.HTML, batch(function(events, done) {
-        gulp.start('replaceHTML', done);
-    }));
-});
 
 gulp.task('copy', function() {
     gulp.src(path.HTML).pipe(htmlreplace({
@@ -55,6 +45,9 @@ gulp.task('copy', function() {
 });
 
 gulp.task('watch', function() {
+
+    gulp.watch(path.HTML, ['replaceHTML']);
+    gulp.watch(path.STYLES, ['buildCSS']);
 
     var watcher = watchify( browserify( {
         entries: [path.ENTRY_POINT],
@@ -76,4 +69,4 @@ gulp.task('watch', function() {
 
 //use this command to find errors in build
 //browserify -t reactify -r react -r ./src/js/App.js > dist/src/bundle.js
-gulp.task('default', ['watch', 'copy', 'css', 'index']);
+gulp.task('default', ['watch', 'copy', 'buildCSS', 'replaceHTML']);
