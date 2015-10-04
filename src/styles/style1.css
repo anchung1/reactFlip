@@ -1,57 +1,40 @@
-
-
-#idbg {
-    position: relative;
-    width: 1024px;
-    height: 500px;
-    background-image: url("bg.jpg");
-}
-
-
-
-.deck1 {
-    background-image: url("cards.jpg");
-}
-
-.AceSpade {
+.card-sm {
     position: absolute;
-    background-position: -9px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 10px;
-
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    width: 52px;
+    height: 72px;
 }
 
-.KingHeart {
+.card-sm.flipped {
+    transform: rotateY(180deg);
+}
+
+.front-sm {
     position: absolute;
-    background-position: -191px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 210px;
-
+    width: 52px;
+    height: 72px;
+    backface-visibility: hidden;
 }
 
-.Joker {
+.back-sm {
     position: absolute;
-    background-position: -374px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 410px;
+    width: 52px;
+    height: 72px;
+    backface-visibility: hidden;
 
+    background-position: -131px -332px;
+    transform: rotateY(180deg);
 }
 
-.Back {
-    position: absolute;
-    background-position: -556px -413px;
-    width: 172px;
-    height: 241px;
-    top: 100px;
-    left: 610px;
-
+#Ace-sm {
+    background-position: -9px -9px;
 }
+
+#King-sm {
+    background-position: -9px -9px;
+}
+
 
 /*
 .deck:hover {

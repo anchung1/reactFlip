@@ -10,9 +10,9 @@
 }
 
 .card {
-    width: 200px;
-    height: 260px;
     position: absolute;
+    width: 172px;
+    height: 241px;
     transition: transform 1s;
     transform-style: preserve-3d;
 }
@@ -48,3 +48,4 @@
 #King {
     background-position: -191px -413px;
 }
+
