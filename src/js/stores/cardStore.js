@@ -13,23 +13,21 @@ var _store = {
 
 var numCards = 52;
 var rowCount = 13;
-var init_done = false;
 
 on_start();
 
 function on_start() {
-    if (init_done) return;
 
     _store.cardArray = [];
     for (var i=0; i<numCards; i++) {
-        var elem = {id: "idcard"+i, class: "card card-sm"};
+        var elem = {id: "idcard"+i, class: "card card-sm flipped"};
         var corner = calcImageOffset(i);
         elem.left = corner.left;
         elem.top = corner.top;
         elem.index = i;
+        elem.show = true;
         _store.cardArray.push(elem);
     }
-    init_done = true;
 }
 
 function calcImageOffset(index) {
@@ -45,9 +43,15 @@ function calcImageOffset(index) {
     return ({left: xpos, top: ypos});
 }
 
-function addCards(count) {
+function shuffle(target, items) {
+    items.forEach(function(item) {
+        var r = getRandomInt(0, target.length);
+        target.splice(r, 0, item);
+    });
 
-    if (!init_done) on_start();
+}
+
+function addCards(count) {
 
     for (var i=0; i<count; i++) {
         var c = getRandomInt(0, _store.cardArray.length);
@@ -58,6 +62,23 @@ function addCards(count) {
     }
 }
 
+function doubleCards(count) {
+    for (var i=0; i<count; i++) {
+        var c = getRandomInt(0, _store.cardArray.length);
+        var card = _store.cardArray[c];
+
+        _.pullAt(_store.cardArray, c);
+        _store.dealtCards.push(card);
+    }
+
+    var duplicate = _.cloneDeep(_store.dealtCards);
+    duplicate.forEach(function(elem) {
+        elem.id += "dupe";
+    });
+
+    shuffle(_store.dealtCards, duplicate);
+
+}
 
 //min inclusive.. max exclusive
 function getRandomInt(min, max) {
@@ -73,7 +94,6 @@ var cardStore = objectAssign({}, EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, cb);
     },
     getCards: function() {
-        if (!init_done) on_start();
 
         return _store.dealtCards;
     }
@@ -86,6 +106,12 @@ AppDispatcher.register(function(payload){
         case appConstants.ADD_CARDS:
             addCards(action.data);
             cardStore.emit(CHANGE_EVENT);
+            break;
+        case appConstants.MEMORY_CARDS:
+            doubleCards(action.data);
+            cardStore.emit(CHANGE_EVENT);
+            break;
+
         default:
             return true;
     }

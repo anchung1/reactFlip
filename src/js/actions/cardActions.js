@@ -7,6 +7,13 @@ var cardActions = {
             actionType: appConstants.ADD_CARDS,
             data: count
         });
+    },
+
+    memoryCards: function(count){
+        AppDispatcher.handleAction({
+            actionType: appConstants.MEMORY_CARDS,
+            data: count
+        });
     }
 };
 
