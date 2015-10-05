@@ -1,37 +1,31 @@
 var React = require('react');
 var _ = require('lodash');
+var cardStore = require('../stores/cardStore');
+var cardAction = require('../actions/cardActions');
 
-var numCards = 52;
-var rowCount = 13;
-
-var startX = 8;
-var startY = 8;
-function calcImageOffset(index) {
-    var j = Math.floor(index/rowCount);
-    var i = index % rowCount;
-
-    var xpos = (startX + i*61) * -1;
-    var ypos = (startY + j*81) * -1;
-
-    return ({left: xpos, top: ypos});
-}
-
+var cardAdd = 52;
 var SmallCardContainer = React.createClass({
 
     getInitialState: function() {
-
-        var cardArray = [];
-        for (var i=0; i<numCards; i++) {
-            var elem = {id: "idcard"+i, class: "card card-sm"};
-            var corner = calcImageOffset(i);
-            elem.left = corner.left;
-            elem.top = corner.top;
-            cardArray.push(elem);
-        }
-
-        console.log(cardArray);
         return ({
-            baseClass: cardArray
+            baseClass: []
+        });
+    },
+
+    componentDidMount: function() {
+        cardStore.addChangeListener(this._changeCB);
+        cardAction.addCards(cardAdd);
+
+    },
+
+    componentWillUnmount: function() {
+        cardStore.removeChangeListener(this._changeCB);
+    },
+
+    _changeCB: function() {
+        var cards = cardStore.getCards();
+        this.setState({
+            baseClass: cards
         });
     },
 
@@ -42,6 +36,7 @@ var SmallCardContainer = React.createClass({
          */
 
         var newClass = this.state.baseClass;
+
         var classes = newClass[i].class.split(' ');
         var index = _.findIndex(classes, function(chr) {
             return (chr=='flipped');
@@ -61,38 +56,30 @@ var SmallCardContainer = React.createClass({
             })
         }
 
-
-    },
-
-    kingFlip: function() {
-        $('#cardKing').toggleClass('flipped');
     },
 
     render: function () {
 
-        var cards = [];
-        cards.push({value: this.state.baseClass[2], index: 2});
-        cards.push({value: this.state.baseClass[4], index: 4});
-        cards.push({value: this.state.baseClass[6], index: 6});
-        cards.push({value: this.state.baseClass[8], index: 8});
+        var items = this.state.baseClass.map(function(acard, i) {
+            var startTop = 25;
+            var startLeft = 100;
+            var rowCount = 7;
 
+            var j = Math.floor(i/rowCount);
+            var ii = i % rowCount;
 
-        var items = cards.map(function(acard, i) {
-
-
-            var top = 300;
-            var left = 100 + i*70;
+            var top = (startTop + j*90);
+            var left = (startLeft + ii*70);
             var style = {top: ""+top+"px", left: ""+left+"px"};
 
-            var xpos = acard.value.left;
-            var ypos = acard.value.top;
+            var xpos = acard.left;
+            var ypos = acard.top;
 
             var posValue = ""+xpos+"px " + ypos+"px";
             var style1 = {backgroundPosition: posValue};
-            console.log(posValue);
 
             return(
-                <div className={acard.value.class} onClick={this.aceFlip.bind(this,acard.index)} style={style} key={acard.value.id}>
+                <div className={acard.class} onClick={this.aceFlip.bind(this,i)} style={style} key={acard.id}>
                     <div className="deck front-sm" style={style1}></div>
                     <div className="deck back-sm"></div>
                 </div>
