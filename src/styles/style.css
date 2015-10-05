@@ -42,6 +42,16 @@
 .deck {
     background-image: url("cards.jpg");
 }
+
+.royalflush {
+    background-image: url("royalflush.gif");
+    position: absolute;
+    width: 371px;
+    height: 280px;
+    left: 100px;
+    top: 100px;
+}
+
 #Ace {
     background-position: -9px -413px;
 }

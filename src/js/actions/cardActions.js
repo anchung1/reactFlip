@@ -14,7 +14,15 @@ var cardActions = {
             actionType: appConstants.MEMORY_CARDS,
             data: count
         });
+    },
+
+    newMemGame: function(count) {
+        AppDispatcher.handleAction({
+            actionType: appConstants.NEW_MEMORY_GAME,
+            data: count
+        });
     }
+
 };
 
 module.exports = cardActions;

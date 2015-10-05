@@ -39,7 +39,6 @@ var SmallCardContainer = React.createClass({
 
             <div className="container">
                 {items}
-
             </div>
 
 

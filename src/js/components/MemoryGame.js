@@ -3,6 +3,7 @@ var _ = require('lodash');
 var cardStore = require('../stores/cardStore');
 var cardAction = require('../actions/cardActions');
 var SmallCards = require('./SmallCardContaier');
+var Gameover = require('./GameOver');
 
 var cardAdd = 52;
 var memoryCards = 10;
@@ -12,15 +13,15 @@ var clickHistory = [];
 var MemoryGame = React.createClass({
 
     getInitialState: function() {
-        this.testVal = 5;
         return ({
-            cards: []
+            cards: [],
+            gameOver: true
         });
     },
 
     componentDidMount: function() {
         cardStore.addChangeListener(this._changeCB);
-        cardAction.memoryCards(memoryCards);
+        //cardAction.newMemGame(memoryCards);
 
     },
 
@@ -29,9 +30,14 @@ var MemoryGame = React.createClass({
     },
 
     _changeCB: function() {
+
+        this.matchCount = 0;
+        this.numTurns = 0;
+
         var cards = cardStore.getCards();
         this.setState({
-            cards: cards
+            cards: cards,
+            gameOver: false
         });
     },
 
@@ -61,7 +67,8 @@ var MemoryGame = React.createClass({
 
         clickHistory.push(i);
         if (clickHistory.length==2) {
-            setTimeout(this.flipBack, 3000);
+            this.numTurns++;
+            setTimeout(this.flipBack, 2000);
 
         }
     },
@@ -85,6 +92,13 @@ var MemoryGame = React.createClass({
             console.log('found match: ' + flipped[0].index);
             flipped[0].show = false;
             flipped[1].show = false;
+
+            this.matchCount++;
+            if (this.matchCount == memoryCards) {
+                this.setState({
+                    gameOver: true
+                });
+            }
         }
 
         //force update
@@ -97,8 +111,17 @@ var MemoryGame = React.createClass({
 
     render: function () {
 
+        var element = <div></div>;
+        if (this.state.gameOver) {
+            element = <Gameover turns={this.numTurns} numCards={memoryCards}></Gameover>;
+        } else {
+            element = <SmallCards handler={this.handleFlip} cards={this.state.cards}></SmallCards>;
+        }
+
         return(
-            <SmallCards handler={this.handleFlip} cards={this.state.cards}></SmallCards>
+            <div>
+                {element}
+            </div>
         );
     }
 

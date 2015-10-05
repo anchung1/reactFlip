@@ -14,11 +14,13 @@ var _store = {
 var numCards = 52;
 var rowCount = 13;
 
-on_start();
+init_cards();
 
-function on_start() {
+function init_cards() {
 
     _store.cardArray = [];
+    _store.dealtCards = [];
+
     for (var i=0; i<numCards; i++) {
         var elem = {id: "idcard"+i, class: "card card-sm flipped"};
         var corner = calcImageOffset(i);
@@ -28,6 +30,11 @@ function on_start() {
         elem.show = true;
         _store.cardArray.push(elem);
     }
+}
+
+function newMemGame(count) {
+    init_cards();
+    doubleCards(count);
 }
 
 function calcImageOffset(index) {
@@ -112,6 +119,10 @@ AppDispatcher.register(function(payload){
             cardStore.emit(CHANGE_EVENT);
             break;
 
+        case appConstants.NEW_MEMORY_GAME:
+            newMemGame(action.data);
+            cardStore.emit(CHANGE_EVENT);
+            break;
         default:
             return true;
     }
