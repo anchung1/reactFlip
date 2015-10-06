@@ -89,7 +89,6 @@ var MemoryGame = React.createClass({
 
         //found match
         if (flipped[0].index == flipped[1].index) {
-            console.log('found match: ' + flipped[0].index);
             flipped[0].show = false;
             flipped[1].show = false;
 

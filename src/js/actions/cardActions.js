@@ -1,6 +1,8 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 
+var restUrl = "https://localhost:30001/";
+
 var cardActions = {
     addCards: function(count){
         AppDispatcher.handleAction({
@@ -21,6 +23,13 @@ var cardActions = {
             actionType: appConstants.NEW_MEMORY_GAME,
             data: count
         });
+
+        var testUrl = restUrl + "api/greet";
+        $.get(testUrl).then(
+            function(data) {
+                console.log(data);
+            }
+        );
     }
 
 };
