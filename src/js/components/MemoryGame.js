@@ -6,7 +6,7 @@ var SmallCards = require('./SmallCardContaier');
 var Gameover = require('./GameOver');
 
 var cardAdd = 52;
-var memoryCards = 10;
+var memoryCards = 20;
 
 var clickHistory = [];
 
@@ -54,6 +54,7 @@ var MemoryGame = React.createClass({
 
     handleFlip: function(i) {
         if (clickHistory.length >= 2) return;
+        if (clickHistory.length == 1 && clickHistory[0] == i) return;
 
         var newClass = this.state.cards;
 
