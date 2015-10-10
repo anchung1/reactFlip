@@ -2,11 +2,11 @@ var React = require('react');
 var _ = require('lodash');
 var cardStore = require('../stores/cardStore');
 var cardAction = require('../actions/cardActions');
-var SmallCards = require('./SmallCardContaier');
+var SmallCards = require('./SmallCardContainer');
 var Gameover = require('./GameOver');
 
 var cardAdd = 52;
-var memoryCards = 20;
+var memoryCards = 52;  //choose 1-52
 
 var clickHistory = [];
 

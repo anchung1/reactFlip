@@ -1,19 +1,32 @@
 var React = require('react');
 
+var numCards = 0;
+var colCount = 0;
 var SmallCardContainer = React.createClass({
 
+    componentDidMount: function() {
+        console.log('card component mount');
+
+    },
 
     render: function () {
+
+        //calcDimension(this.props.cards.length);
+        if (numCards != this.props.cards.length) {
+            numCards = this.props.cards.length;
+            colCount = Math.floor(Math.sqrt(numCards) * 1.25);
+
+        }
 
         var items = this.props.cards.map(function(acard, i) {
 
             if (acard.show == false) return;
             var startTop = 25;
             var startLeft = 100;
-            var rowCount = 7;
+            //var colCount = 7;
 
-            var j = Math.floor(i/rowCount);
-            var ii = i % rowCount;
+            var j = Math.floor(i/colCount);
+            var ii = i % colCount;
 
             var top = (startTop + j*90);
             var left = (startLeft + ii*70);
