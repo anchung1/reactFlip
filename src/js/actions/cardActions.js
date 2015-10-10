@@ -23,11 +23,19 @@ var cardActions = {
             actionType: appConstants.NEW_MEMORY_GAME,
             data: count
         });
+    },
 
-        var testUrl = restUrl + "api/greet";
-        $.get(testUrl).then(
-            function(data) {
-                console.log(data);
+    recordResult: function(score) {
+        var url = restUrl + "api/daily";
+        $.post(url, {name: "Nick", score: score}).then(
+            function (data) {
+                AppDispatcher.handleAction({
+                    actionType: appConstants.NEW_RECORD,
+                    data: data
+                });
+            },
+            function () {
+
             }
         );
     }

@@ -5,10 +5,13 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
+var CHANGE_EVENT_RECORD = 'record';
 
 var _store = {
     cardArray: [],
-    dealtCards: []
+    dealtCards: [],
+    msg: '',
+    score: -1
 };
 
 var numCards = 52;
@@ -35,6 +38,18 @@ function init_cards() {
 function newMemGame(count) {
     init_cards();
     doubleCards(count);
+}
+
+function newScore(value) {
+    if (value.allTime) {
+        _store.msg = 'All Time High Score';
+    } else if (value.daily) {
+        _store.msg = "Daily High Score";
+    } else {
+        _store.msg = "Try Again"
+    }
+    _store.score = value.score;
+
 }
 
 function calcImageOffset(index) {
@@ -103,6 +118,15 @@ var cardStore = objectAssign({}, EventEmitter.prototype, {
     getCards: function() {
 
         return _store.dealtCards;
+    },
+    addScoreListener: function(cb) {
+        this.on(CHANGE_EVENT_RECORD, cb);
+    },
+    removeScoreListener: function(cb) {
+        this.on(CHANGE_EVENT_RECORD, cb);
+    },
+    getScore: function() {
+        return ({msg: _store.msg, score: _store.score});
     }
 
 });
@@ -122,6 +146,10 @@ AppDispatcher.register(function(payload){
         case appConstants.NEW_MEMORY_GAME:
             newMemGame(action.data);
             cardStore.emit(CHANGE_EVENT);
+            break;
+        case appConstants.NEW_RECORD:
+            newScore(action.data);
+            cardStore.emit(CHANGE_EVENT_RECORD);
             break;
         default:
             return true;

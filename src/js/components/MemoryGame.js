@@ -15,18 +15,23 @@ var MemoryGame = React.createClass({
     getInitialState: function() {
         return ({
             cards: [],
-            gameOver: true
+            gameOver: true,
+            scoreMsg: ''
         });
     },
 
     componentDidMount: function() {
         cardStore.addChangeListener(this._changeCB);
+        cardStore.addScoreListener(this._scoreCB);
+
         //cardAction.newMemGame(memoryCards);
 
     },
 
     componentWillUnmount: function() {
         cardStore.removeChangeListener(this._changeCB);
+        cardStore.removeScoreListener(this._scoreCB);
+
     },
 
     _changeCB: function() {
@@ -38,6 +43,12 @@ var MemoryGame = React.createClass({
         this.setState({
             cards: cards,
             gameOver: false
+        });
+    },
+    _scoreCB: function () {
+        var score = cardStore.getScore();
+        this.setState({
+            scoreMsg: score.msg
         });
     },
 
@@ -94,6 +105,7 @@ var MemoryGame = React.createClass({
 
             this.matchCount++;
             if (this.matchCount == memoryCards) {
+                cardAction.recordResult(this.numTurns);
                 this.setState({
                     gameOver: true
                 });
@@ -112,7 +124,7 @@ var MemoryGame = React.createClass({
 
         var element = <div></div>;
         if (this.state.gameOver) {
-            element = <Gameover turns={this.numTurns} numCards={memoryCards}></Gameover>;
+            element = <Gameover msg={this.state.scoreMsg} turns={this.numTurns} numCards={memoryCards}></Gameover>;
         } else {
             element = <SmallCards handler={this.handleFlip} cards={this.state.cards}></SmallCards>;
         }
