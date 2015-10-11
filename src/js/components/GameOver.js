@@ -24,6 +24,8 @@ var GameOver = React.createClass({
             if (event.which == ENTER_KEY) {
                 name = this.refs.nameInput.getDOMNode().value;
                 this.props.handler({type: 'name', value: name});
+
+                $('#collapseExample').attr("class", "collapse");
             }
         }
 
