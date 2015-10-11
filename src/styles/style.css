@@ -48,8 +48,8 @@
     position: absolute;
     width: 371px;
     height: 280px;
-    left: 100px;
-    top: 100px;
+    left: 25%;
+    top: 25%;
 }
 
 #Ace {
@@ -59,3 +59,6 @@
     background-position: -191px -413px;
 }
 
+.list-group-item:hover {
+    cursor: pointer;
+}

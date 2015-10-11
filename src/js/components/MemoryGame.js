@@ -6,7 +6,6 @@ var SmallCards = require('./SmallCardContainer');
 var Gameover = require('./GameOver');
 
 var cardAdd = 52;
-var memoryCards = 52;  //choose 1-52
 
 var clickHistory = [];
 
@@ -16,7 +15,9 @@ var MemoryGame = React.createClass({
         return ({
             cards: [],
             gameOver: true,
-            scoreMsg: ''
+            scoreMsg: '',
+            playerName: '',
+            memoryCards: 10
         });
     },
 
@@ -85,6 +86,34 @@ var MemoryGame = React.createClass({
         }
     },
 
+    goHandler: function(data) {
+
+        if (data.type == 'name') {
+            if (data.value != this.state.playerName) {
+                this.numTurns = 0;
+                this.setState({
+                    playerName: data.value,
+                    scoreMsg: ''
+                });
+            }
+
+        }
+
+        if (data.type == 'numCards') {
+            var value = parseInt(data.value);
+            if (value < 0) {
+                value = 10;
+            } else if (value > 52) {
+                value = 52;
+            }
+
+            this.setState({
+                memoryCards: value
+            });
+        }
+
+    },
+
     flipBack: function() {
 
         var reg = /flipped/;
@@ -105,7 +134,7 @@ var MemoryGame = React.createClass({
             flipped[1].show = false;
 
             this.matchCount++;
-            if (this.matchCount == memoryCards) {
+            if (this.matchCount == this.state.memoryCards) {
                 cardAction.recordResult(this.numTurns);
                 this.setState({
                     gameOver: true
@@ -125,7 +154,8 @@ var MemoryGame = React.createClass({
 
         var element = <div></div>;
         if (this.state.gameOver) {
-            element = <Gameover msg={this.state.scoreMsg} turns={this.numTurns} numCards={memoryCards}></Gameover>;
+            element = <Gameover msg={this.state.scoreMsg} turns={this.numTurns} numCards={this.state.memoryCards}
+                name={this.state.playerName} handler={this.goHandler}></Gameover>;
         } else {
             element = <SmallCards handler={this.handleFlip} cards={this.state.cards}></SmallCards>;
         }

@@ -4,11 +4,6 @@ var numCards = 0;
 var colCount = 0;
 var SmallCardContainer = React.createClass({
 
-    componentDidMount: function() {
-        console.log('card component mount');
-
-    },
-
     render: function () {
 
         //calcDimension(this.props.cards.length);
